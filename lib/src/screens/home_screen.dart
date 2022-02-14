@@ -1,5 +1,5 @@
 import 'dart:async';
-
+// ignore: unnecessary_import
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -25,9 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final applicationBloc =
         Provider.of<ApplicationBloc>(context, listen: false);
 
-
     //Listen for selected Location
-    locationSubscription = applicationBloc.selectedLocation.stream.listen((place) {
+    locationSubscription =
+        applicationBloc.selectedLocation.stream.listen((place) {
       if (place != null) {
         _locationController.text = place.name;
         _goToPlace(place);
@@ -41,8 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     super.initState();
   }
-
-
 
   @override
   void dispose() {
@@ -67,21 +65,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: _locationController,
-                      textCapitalization: TextCapitalization.words,
-                      decoration: InputDecoration(
-                        hintText: 'Search by City',
-                        suffixIcon: Icon(Icons.search),
-                      ),
-                      onChanged: (value) => applicationBloc.searchPlaces(value),
-                      onTap: () => applicationBloc.clearSelectedLocation(),
-                    ),
+                  //  child: TextField(
+                    //  controller: _locationController,
+                      //textCapitalization: TextCapitalization.words,
+                      //decoration: InputDecoration(
+                        //hintText: 'Search by City',
+                        //suffixIcon: Icon(Icons.search),
+                    //  ),
+                      //onChanged: (value) => applicationBloc.searchPlaces(value),
+                      //onTap: () => applicationBloc.clearSelectedLocation(),
+                    //),
                   ),
                   Stack(
                     children: [
                       Container(
-                        height: 300.0,
+                        height: 500.0,
                         child: GoogleMap(
                           mapType: MapType.normal,
                           myLocationEnabled: true,
@@ -89,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             target: LatLng(
                                 applicationBloc.currentLocation.latitude,
                                 applicationBloc.currentLocation.longitude),
-                            zoom: 14,
+                            zoom: 40.0,
                           ),
                           onMapCreated: (GoogleMapController controller) {
                             _mapController.complete(controller);
@@ -100,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (applicationBloc.searchResults != null &&
                           applicationBloc.searchResults.length != 0)
                         Container(
-                            height: 300.0,
+                            height: 200.0,
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 color: Colors.black.withOpacity(.6),
@@ -128,67 +126,51 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 10.0,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Find Nearest',
-                        style: TextStyle(
-                            fontSize: 25.0, fontWeight: FontWeight.bold)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Wrap(
-                      spacing: 8.0,
-                      children: [
-                        FilterChip(
-                          label: Text('Campground'),
-                          onSelected: (val) => applicationBloc.togglePlaceType(
-                              'campground', val),
-                          selected:
-                              applicationBloc.placeType  =='campground',
-                          selectedColor: Colors.blue,
-                        ),
-                        FilterChip(
-                            label: Text('Locksmith'),
-                            onSelected: (val) => applicationBloc
-                                .togglePlaceType('locksmith', val),
-                            selected: applicationBloc.placeType  =='locksmith',
-                            selectedColor: Colors.blue),
-                        FilterChip(
-                            label: Text('Pharmacy'),
-                            onSelected: (val) => applicationBloc
-                                .togglePlaceType('pharmacy', val),
-                            selected:
-                            applicationBloc.placeType  =='pharmacy',
-                            selectedColor: Colors.blue),
-                        FilterChip(
-                            label: Text('Pet Store'),
-                            onSelected: (val) => applicationBloc
-                                .togglePlaceType('pet_store', val),
-                            selected: applicationBloc.placeType  =='pet_store',
-                            selectedColor: Colors.blue),
-                        FilterChip(
-                            label: Text('Lawyer'),
-                            onSelected: (val) =>
-                                applicationBloc
-                                    .togglePlaceType('lawyer', val),
-                            selected:
-                            applicationBloc.placeType  =='lawyer',
-                            selectedColor: Colors.blue),
-                        FilterChip(
-                            label: Text('Bank'),
-                            onSelected: (val) =>
-                                applicationBloc
-                                    .togglePlaceType('bank', val),
-                            selected:
-                            applicationBloc.placeType  =='bank',
-                            selectedColor: Colors.blue),
+                 // Padding(
+                   // padding: const EdgeInsets.all(8.0),
+                    //child: Text('Find Nearest',
+                      //  style: TextStyle(
+                      //      fontSize: 25.0, fontWeight: FontWeight.bold)),
+                  //),
+                 // Padding(
+                   // padding: const EdgeInsets.all(8.0),
+                    //child: Wrap(
+                      //spacing: 8.0,
+                      //children: [
+                        //  FilterChip(
+                        // label: Text('Playground'),
+                        //  onSelected: (val) => applicationBloc.togglePlaceType(
+                        //     'playground', val),
+                        //  selected: applicationBloc.placeType == 'playgrounds',
+                        //  selectedColor: Colors.blue,
+                        //   ),
+                       // FilterChip(
+                         //   label: Text('GYMS'),
+                           // onSelected: (val) =>
+                             //   applicationBloc.togglePlaceType('gym', val),
+                            //selected: applicationBloc.placeType == 'gym',
+                            //selectedColor: Colors.blue),
+                        // FilterChip(
+                        //    label: Text('Pharmacy'),
+                        //     onSelected: (val) => applicationBloc
+                        //       .togglePlaceType('pharmacy', val),
+                        //  selected: applicationBloc.placeType == 'pharmacy',
+                        //    selectedColor: Colors.blue),
+                        // FilterChip(
+                        //   label: Text('Sports Store'),
+                        // onSelected: (val) => applicationBloc
+                        //   .togglePlaceType('sports_store', val),
+                        //selected:
+                        //  applicationBloc.placeType == 'sports_store',
+                        //selectedColor: Colors.blue),
                       ],
                     ),
-                  )
-                ],
-              ));
+                 // )
+                //],
+            //  )
+              );
   }
 
   Future<void> _goToPlace(Place place) async {
@@ -198,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
         CameraPosition(
             target: LatLng(
                 place.geometry.location.lat, place.geometry.location.lng),
-            zoom: 14.0),
+            zoom: 30.0),
       ),
     );
   }

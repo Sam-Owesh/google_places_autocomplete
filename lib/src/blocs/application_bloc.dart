@@ -24,6 +24,7 @@ class ApplicationBloc with ChangeNotifier {
   Place selectedLocationStatic;
   String placeType;
   List<Place> placeResults;
+  // ignore: deprecated_member_use
   List<Marker> markers = List<Marker>();
 
 
@@ -40,10 +41,10 @@ class ApplicationBloc with ChangeNotifier {
     notifyListeners();
   }
 
-  searchPlaces(String searchTerm) async {
-    searchResults = await placesService.getAutocomplete(searchTerm);
+ // searchPlaces(String searchTerm) async {
+   // searchResults = await placesService.getAutocomplete(searchTerm);
     notifyListeners();
-  }
+  //}
 
 
   setSelectedLocation(String placeId) async {
